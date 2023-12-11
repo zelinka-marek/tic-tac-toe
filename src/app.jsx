@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { Board } from "./components/board.jsx";
+import { Logo } from "./components/logo.jsx";
+import { RestartButton } from "./components/restart-button.jsx";
+import { Status } from "./components/status.jsx";
 import { TimeTravel } from "./components/time-travel.jsx";
-import { calculateWinner } from "./utils.js";
+
+const initialHistory = [Array(9).fill(null)];
+const initialCurrentMove = 0;
 
 export default function Game() {
-  let [history, setHistory] = useState([Array(9).fill(null)]);
-  let [currentMove, setCurrentMove] = useState(0);
+  let [history, setHistory] = useState(() => initialHistory);
+  let [currentMove, setCurrentMove] = useState(initialCurrentMove);
 
   let xIsNext = currentMove % 2 === 0;
   let currentSquares = history[currentMove];
-  let winner = calculateWinner(currentSquares);
-  let status = winner
-    ? `Winner: ${winner}`
-    : currentSquares.every(Boolean)
-      ? `Draw`
-      : `Next player: ${xIsNext ? "X" : "O"}`;
+
+  function handleRestart() {
+    setHistory(initialHistory);
+    setCurrentMove(initialCurrentMove);
+  }
 
   function handlePlay(nextSquares) {
     let nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -30,9 +34,11 @@ export default function Game() {
   return (
     <div className="flex min-h-full flex-col justify-center bg-gray-50 px-6 py-12">
       <div className="mx-auto w-full max-w-sm">
-        <p className="inline-block rounded-md bg-white px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-200">
-          {status}
-        </p>
+        <div className="flex items-center justify-between">
+          <Logo />
+          <Status xIsNext={xIsNext} squares={currentSquares} />
+          <RestartButton onClick={handleRestart} />
+        </div>
       </div>
       <div className="mx-auto mt-10 w-full max-w-sm">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
@@ -44,8 +50,8 @@ export default function Game() {
           </summary>
           <div className="mt-3">
             <TimeTravel
-              currentMove={currentMove}
               history={history}
+              currentMove={currentMove}
               onItemClick={jumpTo}
             />
           </div>
