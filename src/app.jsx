@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { calculateWinner } from "./utils.js";
 import { Board } from "./components/board.jsx";
+import { TimeTravel } from "./components/time-travel.jsx";
+import { calculateWinner } from "./utils.js";
 
 export default function Game() {
   let [history, setHistory] = useState([Array(9).fill(null)]);
@@ -12,8 +13,8 @@ export default function Game() {
   let status = winner
     ? `Winner: ${winner}`
     : currentSquares.every(Boolean)
-    ? `Draw`
-    : `Next player: ${xIsNext ? "X" : "O"}`;
+      ? `Draw`
+      : `Next player: ${xIsNext ? "X" : "O"}`;
 
   function handlePlay(nextSquares) {
     let nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -27,27 +28,28 @@ export default function Game() {
   }
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <div className="status">{status}</div>
+    <div className="flex min-h-full flex-col justify-center bg-gray-50 px-6 py-12">
+      <div className="mx-auto w-full max-w-sm">
+        <p className="inline-block rounded-md bg-white px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-200">
+          {status}
+        </p>
+      </div>
+      <div className="mx-auto mt-10 w-full max-w-sm">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
-      <div className="game-info">
-        <ul>
-          {history.map((_squares, move) => (
-            <li key={move}>
-              {move === currentMove && move === 0 ? (
-                "You are at game start"
-              ) : move === currentMove ? (
-                `You are at move #${move}`
-              ) : (
-                <button type="button" onClick={() => jumpTo(move)}>
-                  {move > 0 ? `Go to move #${move}` : "Go to game start"}
-                </button>
-              )}
-            </li>
-          ))}
-        </ul>
+      <div className="mx-auto mt-10 w-full max-w-sm">
+        <details className="open:rounded-lg open:bg-white open:p-6 open:shadow-lg open:ring-1 open:ring-black/5">
+          <summary className="select-none text-sm/6 font-semibold text-gray-900">
+            History
+          </summary>
+          <div className="mt-3">
+            <TimeTravel
+              currentMove={currentMove}
+              history={history}
+              onItemClick={jumpTo}
+            />
+          </div>
+        </details>
       </div>
     </div>
   );
