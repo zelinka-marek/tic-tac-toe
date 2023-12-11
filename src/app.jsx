@@ -69,10 +69,10 @@ function Board({ xIsNext, squares, onPlay }) {
 }
 
 export default function Game() {
-  let [xIsNext, setXIsNext] = useState(true);
   let [history, setHistory] = useState([Array(9).fill(null)]);
   let [currentMove, setCurrentMove] = useState(0);
 
+  let xIsNext = currentMove % 2 === 0;
   let currentSquares = history[currentMove];
   let winner = calculateWinner(currentSquares);
   let status = winner
@@ -83,14 +83,13 @@ export default function Game() {
 
   function handlePlay(nextSquares) {
     let nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
-    setXIsNext((xIsNext) => !xIsNext);
+
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
 
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
-    setXIsNext(nextMove % 2 === 0);
   }
 
   return (
