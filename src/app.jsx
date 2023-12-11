@@ -34,7 +34,7 @@ export default function Game() {
       </div>
       <div className="game-info">
         <ul>
-          {history.map((squares, move) => (
+          {history.map((_squares, move) => (
             <li key={move}>
               {move === currentMove && move === 0 ? (
                 "You are at game start"

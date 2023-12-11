@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export function Square({ value, onClick }) {
   return (
     <button className="square" onClick={onClick}>
@@ -5,3 +7,8 @@ export function Square({ value, onClick }) {
     </button>
   );
 }
+
+Square.propTypes = {
+  value: PropTypes.oneOf(["X", "O"]),
+  onClick: PropTypes.func.isRequired,
+};

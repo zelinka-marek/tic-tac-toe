@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { calculateWinner } from "../utils";
 import { Square } from "./square";
 
@@ -35,3 +36,9 @@ export function Board({ xIsNext, squares, onPlay }) {
     </>
   );
 }
+
+Board.propTypes = {
+  xIsNext: PropTypes.bool.isRequired,
+  squares: PropTypes.arrayOf(PropTypes.oneOf(["X", "O"])).isRequired,
+  onPlay: PropTypes.func.isRequired,
+};
