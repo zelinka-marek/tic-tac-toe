@@ -103,9 +103,15 @@ export default function Game() {
         <ul>
           {history.map((squares, move) => (
             <li key={move}>
-              <button type="button" onClick={() => jumpTo(move)}>
-                {move > 0 ? `Go to move #${move}` : "Go to game start"}
-              </button>
+              {move === currentMove && move === 0 ? (
+                "You are at game start"
+              ) : move === currentMove ? (
+                `You are at move #${move}`
+              ) : (
+                <button type="button" onClick={() => jumpTo(move)}>
+                  {move > 0 ? `Go to move #${move}` : "Go to game start"}
+                </button>
+              )}
             </li>
           ))}
         </ul>
