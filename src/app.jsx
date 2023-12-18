@@ -9,11 +9,11 @@ const initialHistory = [Array(9).fill(null)];
 const initialCurrentMove = 0;
 
 export default function Game() {
-  let [history, setHistory] = useState(() => initialHistory);
-  let [currentMove, setCurrentMove] = useState(initialCurrentMove);
+  const [history, setHistory] = useState(() => initialHistory);
+  const [currentMove, setCurrentMove] = useState(initialCurrentMove);
 
-  let xIsNext = currentMove % 2 === 0;
-  let currentSquares = history[currentMove];
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
 
   function handleRestart() {
     setHistory(initialHistory);
@@ -21,7 +21,7 @@ export default function Game() {
   }
 
   function handlePlay(nextSquares) {
-    let nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
 
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);

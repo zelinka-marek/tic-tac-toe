@@ -37,7 +37,6 @@ export function TimeTravel({ history, currentMove, onItemClick }) {
     </ul>
   );
 }
-
 TimeTravel.propTypes = {
   history: PropTypes.arrayOf(
     PropTypes.arrayOf(PropTypes.oneOf(["X", "O"])).isRequired,

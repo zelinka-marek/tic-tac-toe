@@ -13,7 +13,6 @@ export function RestartButton({ onClick }) {
     </button>
   );
 }
-
 RestartButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };

@@ -7,7 +7,6 @@ export function PlayerO({ className }) {
     </svg>
   );
 }
-
 PlayerO.propTypes = {
   className: PropTypes.string,
 };

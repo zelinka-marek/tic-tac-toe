@@ -11,7 +11,6 @@ export function Logo({ className }) {
     </div>
   );
 }
-
 Logo.propTypes = {
   className: PropTypes.string,
 };

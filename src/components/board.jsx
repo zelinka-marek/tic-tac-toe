@@ -4,14 +4,14 @@ import { PlayerO } from "./player-o.jsx";
 import { PlayerX } from "./player-x.jsx";
 
 export function Board({ xIsNext, squares, onPlay }) {
-  let winner = calculateWinner(squares);
+  const winner = calculateWinner(squares);
 
   function handleSquareClick(i) {
     if (squares[i] || winner) {
       return;
     }
 
-    let nextSquares = squares.slice();
+    const nextSquares = squares.slice();
     nextSquares[i] = xIsNext ? "X" : "O";
 
     onPlay(nextSquares);
@@ -20,9 +20,10 @@ export function Board({ xIsNext, squares, onPlay }) {
   return (
     <div className="grid grid-cols-3 gap-6">
       {squares.map((square, i) => {
-        let isFilled = square !== null;
-        let isDisabled = isFilled || winner !== null || squares.every(Boolean);
-        let label = square !== null ? square : "Empty";
+        const isFilled = square !== null;
+        const isDisabled =
+          isFilled || winner !== null || squares.every(Boolean);
+        const label = square !== null ? square : "Empty";
 
         return (
           <button
@@ -47,7 +48,6 @@ export function Board({ xIsNext, squares, onPlay }) {
     </div>
   );
 }
-
 Board.propTypes = {
   xIsNext: PropTypes.bool.isRequired,
   squares: PropTypes.arrayOf(PropTypes.oneOf(["X", "O"])).isRequired,

@@ -4,8 +4,8 @@ import { PlayerO } from "./player-o.jsx";
 import { PlayerX } from "./player-x.jsx";
 
 export function Status({ xIsNext, squares }) {
-  let winner = calculateWinner(squares);
-  let label = winner
+  const winner = calculateWinner(squares);
+  const label = winner
     ? `Winner: ${winner}`
     : squares.every(Boolean)
       ? `Scratch: Cat's game`
@@ -40,7 +40,6 @@ export function Status({ xIsNext, squares }) {
     </p>
   );
 }
-
 Status.propTypes = {
   xIsNext: PropTypes.bool.isRequired,
   squares: PropTypes.arrayOf(PropTypes.oneOf(["X", "O"])).isRequired,
